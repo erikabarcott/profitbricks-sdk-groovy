@@ -114,8 +114,6 @@ class SDKTester {
 
                 v = v.create()
                 println "recreated $v"
-                
-                
 
                 // -------- lan create ---------
 
@@ -306,7 +304,7 @@ class SDKTester {
                 try {
                     i.update()
                 } catch (HttpResponseException e) {
-                    assert  e.statusCode == 422 // stoopid API
+                    assert  e.statusCode == 422 
                 } finally {
                     i = i.read() as Image
                 }
@@ -322,7 +320,7 @@ class SDKTester {
                         assert it.update()
                         
                     } catch (HttpResponseException e) {
-                        assert  e.statusCode == 422 // stoopid API
+                        assert  e.statusCode == 422 
                     } 
                     println "updated $it"
                     assert it.delete()
@@ -348,7 +346,7 @@ class SDKTester {
                 println "detached $i from $s"
 
                 assert stop(s)
-                assert (s = s.read()).vmState =~ /(?i)shutoff/ // wtf
+                assert (s = s.read()).vmState =~ /(?i)shutoff/ 
                 println "stopped $s"
                 assert start(s)
                 assert (s = s.read()).vmState =~ /(?i)running/

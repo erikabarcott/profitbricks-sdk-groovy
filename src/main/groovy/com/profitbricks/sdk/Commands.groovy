@@ -148,9 +148,9 @@ class Commands {
      */
     static final Snapshot snapshot(final Volume volume, final String name = '', final String description = '') {
         def req = requestFor("${volume.resource}/${volume.id}/create-snapshot") + [body: [
-                name: name ?: "snapshot_of_${volume.name}",
-                description: description ?: "source volume: ${volume.name} (${volume.id}), created: ${new Date().format('dd.MM.yyyy HH:mm')}"
-            ]]
+            name: name ?: "snapshot_of_${volume.name}",
+            description: description ?: "source volume: ${volume.name} (${volume.id}), created: ${new Date().format('dd.MM.yyyy HH:mm')}"
+        ]]
         req.requestContentType = URLENC
         def resp = waitFor(API.post(req))
         if (resp?.status == 202) {
@@ -190,12 +190,11 @@ class Commands {
         throw new HttpResponseException(resp?.status as int, "NIC not associated")
     }
     
-    
     /**
-     * gets the associated NICS to a loadbalancer
+     * gets the associated NICS of a loadbalancer
      *
      * @param LoadBalancer the LoadBalancer with the associated NICS
-     * @return a list of associated nics
+     * @return a list of associated NICS
      */
     static final List<String> associatedNics(final LoadBalancer loadBalancer) {
         API.get(requestFor("${loadBalancer.resource}/${loadBalancer.id}/balancednics"))?.data?.items?.collect{it.id}
@@ -204,13 +203,12 @@ class Commands {
     /**
      * gets an associated NIC to a loadbalancer
      *
-     * @param LoadBalancer the loadbalancer with the associated nics
-     * @param nicId the nic id attached to the loadbalancer
+     * @param LoadBalancer the loadbalancer with the associated NICs
+     * @param nicId the NIC id attached to the loadbalancer
      * @return NIC associated
      */
     static final NIC associatedNic(final LoadBalancer loadBalancer,final String nicId) {
         return new NIC().from(API.get(requestFor("${loadBalancer.resource}/${loadBalancer.id}/balancednics/$nicId"))?.data) as NIC
-        
     }
 
     /**
@@ -223,7 +221,6 @@ class Commands {
     static final boolean dissociate(final LoadBalancer loadBalancer, final NIC nic) {
         waitFor(API.delete(requestFor("${loadBalancer.resource}/${loadBalancer.id}/balancednics/${nic.id}")))?.status == 202
     }
-    
     
     // --------------------------------- R E Q U E S T  C O M M A N D S ---------------------------------
     

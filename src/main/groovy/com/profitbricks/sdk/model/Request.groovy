@@ -28,14 +28,9 @@ final class Request extends ModelBase {
         String type
         String href
     }
+    
     final String resource = 'requests'
-
-    //    @Override
-    //    final LAN read(final id = id) { (super.read(id) as LAN)?.with(dataCenter) }
-    //
     @Override
     final String getResource() { "/requests" }
-    //
-    //    private final LAN with(final DataCenter dc) { dataCenter = dc; this }
 }
 
