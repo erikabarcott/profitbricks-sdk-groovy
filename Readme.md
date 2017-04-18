@@ -1562,7 +1562,7 @@ The following table describes the request arguments:
 |---|:-:|---|---|
 | datacenterId | **yes** | string | The ID of the VDC. |
 | loadbalancerId | **yes** | string | The ID of the load balancer. |
-| nName | no | string | The name of the load balancer. |
+| name | no | string | The name of the load balancer. |
 | ip | no | string | The IP of the load balancer. |
 | dhcp | no | bool | Indicates if the load balancer will reserve an IP using DHCP. |
 
