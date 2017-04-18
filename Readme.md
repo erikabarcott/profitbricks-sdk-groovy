@@ -1,4 +1,4 @@
-# .Groovy SDK
+# Groovy SDK
 
 Version: profitbricks-sdk-groovy **1.0.0**
 
@@ -1295,11 +1295,11 @@ The following table describes the request arguments:
 | datacenterId | **yes** | string | The ID of the VDC. |
 | serverId | **yes** | string| The ID of the server. |
 | niceId | **yes** | string| The ID of the NIC. |
-| Name | no | string | The name of the NIC. |
-| Ips | no | string collection | IPs assigned to the NIC represented as a collection. |
-| Dhcp | no | bool | Boolean value that indicates if the NIC is using DHCP or not. |
-| Lan | no | int | The LAN ID the NIC sits on. |
-| Nat | no | bool | Indicates the private IP address has outbound access to the public internet. |
+| name | no | string | The name of the NIC. |
+| ips | no | string collection | IPs assigned to the NIC represented as a collection. |
+| dhcp | no | bool | Boolean value that indicates if the NIC is using DHCP or not. |
+| lan | no | int | The LAN ID the NIC sits on. |
+| nat | no | bool | Indicates the private IP address has outbound access to the public internet. |
 
 After retrieving a NIC, either by getting it by id, or as a create response object, you can call the `update` method directly.
 
@@ -1400,15 +1400,15 @@ The following table describes the request arguments:
 | datacenterId | **yes** | string | The ID of the VDC. |
 | serverId | **yes** | string | The ID of the server. |
 | niceId | **yes** | string | The ID of the NIC. |
-| Name | no | string | The name of the firewall rule. |
-| Protocol | **yes** | string | The protocol for the rule: TCP, UDP, ICMP, ANY. |
-| SourceMac | no | string | Only traffic originating from the respective MAC address is allowed. Valid format: aa:bb:cc:dd:ee:ff. A *null* value allows all source MAC address. |
-| SourceIp | no | string | Only traffic originating from the respective IPv4 address is allowed. A *null* value allows all source IPs. |
-| TargetIp | no | string | In case the target NIC has multiple IP addresses, only traffic directed to the respective IP address of the NIC is allowed. A *null* value allows all target IPs. |
-| PortRangeStart | no | string | Defines the start range of the allowed port (from 1 to 65534) if protocol TCP or UDP is chosen. Leave `PortRangeStart` and `PortRangeEnd` value as *null* to allow all ports. |
-| PortRangeEnd | no | string | Defines the end range of the allowed port (from 1 to 65534) if the protocol TCP or UDP is chosen. Leave `PortRangeStart` and `PortRangeEnd` value as *null* to allow all ports. |
-| IcmpType | no | string | Defines the allowed type (from 0 to 254) if the protocol ICMP is chosen. A *null* value allows all types. |
-| IcmpCode | no | string | Defines the allowed code (from 0 to 254) if protocol ICMP is chosen. A *null* value allows all codes. |
+| name | no | string | The name of the firewall rule. |
+| protocol | **yes** | string | The protocol for the rule: TCP, UDP, ICMP, ANY. |
+| sourceMac | no | string | Only traffic originating from the respective MAC address is allowed. Valid format: aa:bb:cc:dd:ee:ff. A *null* value allows all source MAC address. |
+| sourceIp | no | string | Only traffic originating from the respective IPv4 address is allowed. A *null* value allows all source IPs. |
+| targetIp | no | string | In case the target NIC has multiple IP addresses, only traffic directed to the respective IP address of the NIC is allowed. A *null* value allows all target IPs. |
+| portRangeStart | no | string | Defines the start range of the allowed port (from 1 to 65534) if protocol TCP or UDP is chosen. Leave `PortRangeStart` and `PortRangeEnd` value as *null* to allow all ports. |
+| PportRangeEnd | no | string | Defines the end range of the allowed port (from 1 to 65534) if the protocol TCP or UDP is chosen. Leave `PortRangeStart` and `PortRangeEnd` value as *null* to allow all ports. |
+| icmpType | no | string | Defines the allowed type (from 0 to 254) if the protocol ICMP is chosen. A *null* value allows all types. |
+| icmpCode | no | string | Defines the allowed code (from 0 to 254) if protocol ICMP is chosen. A *null* value allows all codes. |
 
 ```
 FirewallRule fw =new FirewallRule()
@@ -1562,9 +1562,9 @@ The following table describes the request arguments:
 |---|:-:|---|---|
 | datacenterId | **yes** | string | The ID of the VDC. |
 | loadbalancerId | **yes** | string | The ID of the load balancer. |
-| Name | no | string | The name of the load balancer. |
-| Ip | no | string | The IP of the load balancer. |
-| Dhcp | no | bool | Indicates if the load balancer will reserve an IP using DHCP. |
+| nName | no | string | The name of the load balancer. |
+| ip | no | string | The IP of the load balancer. |
+| dhcp | no | bool | Indicates if the load balancer will reserve an IP using DHCP. |
 
 After retrieving a load balancer, either by getting it by id, or as a create response object, you can change it's properties and call the `update` method:
 
