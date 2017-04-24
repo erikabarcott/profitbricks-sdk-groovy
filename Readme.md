@@ -186,7 +186,7 @@ Virtual data centers (VDCs) are the foundation of the ProfitBricks platform. VDC
 
 Create an instace of the api class:
 
-         DataCenter dc = new DataCenter();
+```DataCenter dc = new DataCenter();```
 
 #### List Data Centers
 
@@ -244,10 +244,10 @@ The following table outlines the locations currently supported:
 
 ```
 def dc = new DataCenter(
-                    name: "name",
-                    location: 'de/fkb',
-                    description: 'desc'
-                ).create()
+	name: "name",
+	location: 'de/fkb',
+	description: 'desc'
+).create()
 
 ```
 
@@ -299,7 +299,7 @@ Locations are the physical ProfitBricks data centers where you can provision you
 
 Create an instace of the api class:
 
-         Location loc = new Location()
+```Location loc = new Location()```
 
 #### List Locations
 
@@ -399,11 +399,11 @@ The following table outlines the server availability zones currently supported:
 
 ```
 Server s = new Server(
-                   dataCenter: dc.read(datacenterId),
-                   name: "server name",
-                   cores: 1,
-                   ram: 1024
-               ).create()
+	dataCenter: dc.read(datacenterId),
+	name: "server name",
+	cores: 1,
+	ram: 1024
+).create()
 ```
 
 ---
@@ -712,7 +712,7 @@ stop(s)
 
 Create an instace of the api class:
 
-         Image i = new Image()
+```Image i = new Image()```
 
 #### List Images
 
@@ -744,7 +744,7 @@ i.read(imageId)
 
 Create an instace of the api class:
 
-         Volume v = new Volume()
+```Volume v = new Volume()```
 
 #### List Volumes
 
@@ -821,10 +821,10 @@ The following table outlines the storage availability zones currently supported:
 
 ```
 Volume v = new Volume(
-                    dataCenter: dc,
-                    name: "name",
-                    size: 1
-                ).create()
+	dataCenter: dc,
+	name: "name",
+	size: 1
+).create()
 ```
 
 ---
@@ -934,7 +934,7 @@ restore(v, sn)
 
 Create an instace of the api class:
 
-         Snapshot sn = new Snapshot()
+```Snapshot sn = new Snapshot()```
 
 #### List Snapshots
 
@@ -1022,7 +1022,7 @@ The IP block operations assist with managing reserved /static public IP addresse
 
 Create an instace of the api class:
 
-         IPBlock ip = new IPBlock()
+```IPBlock ip = new IPBlock()```
 
 #### List IP Blocks
 
@@ -1072,10 +1072,10 @@ To create an IP block, establish the parameters and then call `create`.
 
 ```
 IPBlock ip = new IPBlock(
-                    location: location,
-                    name: "name",
-                    size: 2
-                ).create()
+	location: location,
+	name: "name",
+	size: 2
+).create()
 ```
 
 ---
@@ -1103,7 +1103,7 @@ _ip.delete()
 
 Create an instace of the api class:
 
-         LAN l = new LAN()
+```LAN l = new LAN()```
 
 #### List LANs
 
@@ -1136,10 +1136,10 @@ The following table describes the request arguments:
 
 ```
 LAN l = new LAN(
-                    dataCenter: dc.read(datacenterId),
-                    name: name,
-                    _public: true
-                ).create()
+	dataCenter: dc.read(datacenterId),
+	name: name,
+	_public: true
+).create()
 ```
 
 ---
@@ -1214,7 +1214,7 @@ _l.delete()
 
 Create an instance of the api class:
 
-         NIC n = new NIC()
+```NIC n = new NIC()```
 
 #### List NICs
 
@@ -1344,7 +1344,7 @@ _n.read()
 
 Create an instace of the api class:
 
-         FirewallRule fw = new FirewallRule()
+```FirewallRule fw = new FirewallRule()```
 
 #### List Firewall Rules
 
@@ -1415,9 +1415,9 @@ FirewallRule fw =new FirewallRule()
 fw.dataCenter=dc.read(datacenterId)
 fw.server=new Server().read(serverId)
 fw= new FirewallRule(
-                    nic: n.read(niceId),
-                    protocol: 'UDP'
-                ).create()
+	nic: n.read(niceId),
+	protocol: 'UDP'
+).create()
 ```
 
 ---
@@ -1492,7 +1492,7 @@ _fw.delete()
 
 Create an instace of the api class:
 
-         LoadBalancer lb = new LoadBalancer()
+```LoadBalancer lb = new LoadBalancer()```
 
 #### List Load Balancers
 
@@ -1545,9 +1545,9 @@ The following table describes the request arguments:
 ```
 def dc=new DataCenter().read(datacenterId)
 LoadBalancer lb = new LoadBalancer(
-                    dataCenter: dc,
-                    name: "loadbalancer name"
-                ).create()
+	dataCenter: dc,
+	name: "loadbalancer name"
+).create()
 ```
 
 ---
@@ -1703,7 +1703,7 @@ Each call to the ProfitBricks Cloud API is assigned a request ID. These operatio
 
 Create an instace of the api class:
 
-         Request r=new Request()
+```Request r=new Request()```
 
 #### List Requests
 
