@@ -39,8 +39,6 @@ Version: profitbricks-sdk-groovy **1.0.0**
   * [Images](#images)
     * [List Images](#list-images)
     * [Get an Image](#get-an-image)
-    * [Update an Image](#update-an-image)
-    * [Delete an Image](#delete-an-image)
   * [Volumes](#volumes)
     * [List Volumes](#list-volumes)
     * [Get a Volume](#get-a-volume)
@@ -89,6 +87,7 @@ Version: profitbricks-sdk-groovy **1.0.0**
   * [Requests](#requests)
     * [List Requests](#list-requests)
     * [Get a Request Status](#get-a-request-status)
+* [Example](#example)
 * [Support](#support)
 * [Testing](#testing)
 * [Contributing](#contributing)
@@ -165,6 +164,8 @@ b) just add the proper maven dependency:
 The current implementation relies solely on system properties (and proper defaults). The following
 table lists all relevant system properties.
 
+
+
 | name                         |      default                             |  notes                                                                                           |
 -------------------------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
 | `api.URL`                    | https://api.profitbricks.com/cloudapi/v3 | the base API URL                                                                                 |
@@ -175,6 +176,8 @@ table lists all relevant system properties.
 | `api.wait.timeout.seconds`   | 120                                      | if waiting for success, this is the timeout                                                      |
 | `api.wait.max.milliseconds`  | 1500                                     | if waiting for success, this is the max time period between two checks                           |
 | `api.wait.factor`            | 1.87                                     | if waiting for success, this is the factor by which the current time period value is multiplied  |
+
+**Note:** You can set the values inside the `main\resources\config.yml` configuration file.
 
 ## Reference
 
@@ -1730,6 +1733,117 @@ requestStatus(requestId)
 ```
 
 ---
+
+## Examples
+
+The following examples makes the assumption that the SDK has been configured properly, refer to [Configuration](#configuration) section.
+
+
+### Component Build
+
+This example covers creating a DataCenter with a server, it includes creating a public Lan and attaching it to an NIC, it also covers creating a volume and attaching it to the example server.
+
+```groovy
+import com.profitbricks.sdk.model.*
+import static com.profitbricks.sdk.Commands.*
+
+class SDKExample {
+    final static void main(final String[] args) {
+        
+        //Creating a DataCenter
+        println "Creating a DataCenter"
+        
+        DataCenter dc = new DataCenter(
+            name: "example DC",
+            location: 'de/fkb',
+            description: 'desc'
+        ).create() as DataCenter
+        
+        println "DataCenter Ready"
+        // listing DataCenters
+        println "Listing DataCenters"
+        println dc.all
+        
+
+        //Add a lan
+        println "Creating a public Lan"
+        LAN lan = new LAN(
+            dataCenter: dc,
+            name: "public lan",
+            _public: true
+        ).create()
+        
+        println "Public Lan Ready"
+        
+        //Add a server
+        println "Creating a Server"
+        Server server = new Server(
+            dataCenter: dc,
+            name: "Example server",
+            cores: 1,
+            ram: 1024
+        ).create()
+        
+        println "Server Ready"
+        
+        //reading Server
+        println "Read server"
+        println server.read()
+        
+        //Adding NIC to the example Server
+        println "Adding NIC to server"
+        NIC nic = new NIC(
+            server: server,
+            lan: lan,
+            name: "example nic"
+        ).create()
+        println "NIC Ready"
+        
+        //Find a linux image to attach to volume
+        println "Searching for a linux image"
+        Image image = new Image()
+        image = image.all.collect{image.read(it) as Image}.findAll{
+            it._public &&
+            it.location == dc.location &&
+            it.licenceType =~ /(?i)linux/ &&
+            it.imageType =~ /(?i)hdd/
+        }.first()
+        
+        println "Linux Image found: $image"
+        
+        //Create a volume
+        println "Creating a Volume"
+        Volume volume = new Volume(
+            dataCenter: dc,
+            name: "os volume",
+            size: 4,
+            image: image.id,
+            type:"HDD",
+            imagePassword:"test1234"
+            
+        ).create()
+        println "Volume Ready"
+        
+        
+        //Attach the os Volume to the Example server
+        println "Attaching the os Volume to the Example Server"
+        attach(server, volume)
+        println "Volume Attached"
+        
+        //List attached volumes
+        println "Listing attached volumes"
+        println attachedVolumes(server)
+
+        //Example cleaning
+        println "Started cleaning"
+        def _dc = dc.read(dc.id) as DataCenter
+        _dc.delete()
+        println "Cleaning Complete"
+    }
+}
+```
+
+
 
 ## Support
 

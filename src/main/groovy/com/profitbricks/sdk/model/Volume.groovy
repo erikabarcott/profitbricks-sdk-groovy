@@ -27,7 +27,13 @@ final class Volume extends ModelBase {
     int deviceNumber
 
     @Override
-    final Volume create() { (super.create() as Volume)?.with dataCenter }
+    final Volume create() {
+        if(image!=null)
+        {
+            licenceType=null;
+        }
+        (super.create() as Volume)?.with dataCenter 
+    }
 
     @Override
     final Volume read(final id = id) { (super.read(id) as Volume)?.with dataCenter }
