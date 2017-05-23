@@ -1734,7 +1734,7 @@ requestStatus(requestId)
 
 ---
 
-## Examples
+## Example
 
 The following examples makes the assumption that the SDK has been configured properly, refer to [Configuration](#configuration) section.
 
