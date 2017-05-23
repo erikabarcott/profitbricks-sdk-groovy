@@ -12,7 +12,7 @@ import static groovyx.net.http.ContentType.JSON
  * some functions enclosing convenience functionality
  *
  * Created by fudge on 01/02/17.
- * (c)2015 Profitbricks.com
+ * Copyright (c) 2017, ProfitBricks GmbH
  */
 @Log4j2
 final class Common {
@@ -43,14 +43,14 @@ final class Common {
      */
     final static Map requestFor(final String path) {
         [
-         path: "${URLParts.path}/${path}",
-         headers: [
+            path: "${URLParts.path}/${path}",
+            headers: [
              'User-Agent': 'profitbricks-groovy-sdk/1.0',
              'Accept': JSON.acceptHeader,
-             // omit resend-on-401 scheme
+                // omit resend-on-401 scheme
              'Authorization': "Basic " + Base64.encoder.encodeToString("${prop('api.user')}:${prop('api.password')}".bytes)
-         ],
-         requestContentType: JSON
+            ],
+            requestContentType: JSON
         ]
     }
 
@@ -80,7 +80,11 @@ final class Common {
                 }
 
                 print '.'
-                Thread.sleep Math.min(max, (sleep *= (prop('api.wait.factor') ?: 1.87)) as long)
+                //check if sleep value exceedes the max value, otherwise sleep could just grow to exceed the long max value.
+                if(sleep<max) {
+                    sleep *= (((prop('api.wait.factor') ?: 1.87)) as long)
+                }
+                Thread.sleep Math.min(max, (sleep))
             }
         }
         return response
